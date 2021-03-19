@@ -86,7 +86,7 @@ object ConnectorConfig {
 
   lazy val vitess_Host = {
     if (EnvVars.isBuildkite) {
-      "test-vitess"
+      "vtgate"
     } else {
       "127.0.0.1"
     }
