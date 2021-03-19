@@ -79,7 +79,7 @@ object ConnectorConfig {
           "mssql2019"
         )
       case "mongodb" => ConnectorConfig("mongodb", s"mongodb://prisma:prisma@$mongo_host:$mongo_port/$$DB?authSource=admin", false, "mongodb")
-      case "vitess" => ConnectorConfig("mysql", s"mysql://vt_app:@$vitess_Host:15306/commerce?connection_limit=1", false, "mysql")
+      case "vitess" => ConnectorConfig("vitess", s"mysql://$vitess_Host:15306/test?connection_limit=1", false, "vitess")
       case x         => sys.error(s"Connector $x is not supported yet.")
     }
   }

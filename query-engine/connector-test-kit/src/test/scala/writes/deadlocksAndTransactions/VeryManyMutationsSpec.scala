@@ -8,7 +8,6 @@ import scala.concurrent.Future
 
 class VeryManyMutationsSpec extends FlatSpec with Matchers with ApiSpecBase with AwaitUtils {
   override def runOnlyForCapabilities = Set(JoinRelationLinksCapability)
-  override def doNotRunForConnectors = Set(ConnectorTag.VitessConnectorTag)
 
   //Postgres has a limit of 32678 parameters to a query
   val project: Project = SchemaDsl.fromStringV11() {
