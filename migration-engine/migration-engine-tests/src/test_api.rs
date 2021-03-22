@@ -24,7 +24,7 @@ use crate::{
 use dev_diagnostic::DevDiagnostic;
 use enumflags2::BitFlags;
 use mark_migration_rolled_back::MarkMigrationRolledBack;
-use migration_connector::{MigrationFeature, MigrationPersistence, MigrationRecord};
+use migration_connector::{MigrationConnector, MigrationFeature, MigrationPersistence, MigrationRecord};
 use quaint::{
     prelude::{ConnectionInfo, Queryable, SqlFamily},
     single::Quaint,
@@ -56,25 +56,11 @@ impl TestApi {
 
         let connection_string = (args.url_fn)(db_name);
 
-        if tags.contains(Tags::Mysql) {
-            create_mysql_database(&connection_string.parse().unwrap())
-                .await
-                .unwrap();
-        } else if tags.contains(Tags::Postgres) {
-            create_postgres_database(&connection_string.parse().unwrap())
-                .await
-                .unwrap();
-        } else if tags.contains(Tags::Mssql) {
-            let conn = Quaint::new(&connection_string).await.unwrap();
-
-            test_setup::connectors::mssql::reset_schema(&conn, db_name)
-                .await
-                .unwrap();
-        };
-
         let api = SqlMigrationConnector::new(&connection_string, features, None)
             .await
             .unwrap();
+
+        api.reset().await.unwrap();
 
         TestApi {
             api,

@@ -9,13 +9,13 @@ use quaint::prelude::Queryable;
 use sql_schema_describer::{mysql::SqlSchemaDescriber, SqlSchemaDescriberBackend, *};
 use test_api::*;
 use test_macros::*;
-use test_setup::mysql_url;
+use test_setup::mysql_5_7_url;
 
 #[tokio::test]
 async fn views_can_be_described() {
     let db_name = "views_can_be_described";
 
-    let url = mysql_url(db_name);
+    let url = mysql_5_7_url(db_name);
     let conn = test_setup::create_mysql_database(&url.parse().unwrap()).await.unwrap();
 
     conn.raw_cmd(&format!("CREATE TABLE {}.a (a_id int)", db_name))
@@ -917,7 +917,7 @@ async fn mysql_introspected_default_strings_should_be_unescaped() {
     assert_eq!(actual_default, &expected_default);
 }
 
-#[test_each_connector(tags("mysql"))]
+#[test_each_connector(tags("mysql_5_7"))]
 async fn escaped_quotes_in_string_defaults_must_be_unescaped(api: &TestApi) -> TestResult {
     let create_table = format!(
         r#"
