@@ -186,7 +186,7 @@ impl TestApi {
 
     pub fn barrel(&self) -> BarrelMigrationExecutor {
         BarrelMigrationExecutor {
-            schema_name: self.schema_name().to_owned(),
+            schema_name: format!("vt_{}", self.schema_name()),
             database: self.database.clone(),
             sql_variant: match self.sql_family() {
                 SqlFamily::Mysql => barrel::SqlVariant::Mysql,
