@@ -50,7 +50,7 @@ async fn remapping_fields_with_invalid_characters(api: &TestApi) -> crate::TestR
     Ok(())
 }
 
-#[test_each_connector(log = "quaint=info")]
+#[test_each_connector(ignore("mysql_5_7"))]
 async fn remapping_tables_with_invalid_characters(api: &TestApi) -> crate::TestResult {
     api.barrel()
         .execute(|migration| {
