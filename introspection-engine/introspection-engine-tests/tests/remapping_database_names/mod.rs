@@ -126,7 +126,7 @@ async fn remapping_models_in_relations(api: &TestApi) -> crate::TestResult {
     Ok(())
 }
 
-#[test_each_connector]
+#[test_each_connector(ignore("mysql_5_7"))]
 async fn remapping_models_in_relations_should_not_map_virtual_fields(api: &TestApi) -> crate::TestResult {
     api.barrel()
         .execute(|migration| {
