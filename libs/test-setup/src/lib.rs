@@ -295,7 +295,7 @@ fn db_host_and_port_postgres_13() -> (&'static str, usize) {
 pub fn db_host_and_port_mysql_8_0() -> (&'static str, usize) {
     match std::env::var("IS_BUILDKITE") {
         Ok(_) => ("test-db-mysql-8-0", 3306),
-        Err(_) => ("127.0.0.1", 3307),
+        Err(_) => ("127.0.0.1", 15306),
     }
 }
 
