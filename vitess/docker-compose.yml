@@ -61,7 +61,7 @@ services:
     depends_on:
       external_db_host:
         condition: service_healthy
-    image: vitess/lite:${VITESS_TAG:-latest}
+    image: vitess/lite:mysql80
     ports:
     - 15000:8080
     - "15999"
@@ -75,10 +75,10 @@ services:
       consul1:8500 -topo_global_root vitess/global -logtostderr=true -port 8080 -grpc_port
       15999 -mysql_server_port 15306 -mysql_auth_server_impl none -cell test -cells_to_watch
       test -tablet_types_to_wait MASTER,REPLICA,RDONLY -service_map ''grpc-vtgateservice''
-      -normalize_queries=true '
+      -normalize_queries=true -mysql_server_version ''8.0.22'''
     depends_on:
     - vtctld
-    image: vitess/lite:${VITESS_TAG:-latest}
+    image: vitess/lite:mysql80
     ports:
     - 15099:8080
     - "15999"
@@ -98,7 +98,7 @@ services:
     - EXTERNAL_DB=0
     - DB_USER=
     - DB_PASS=
-    image: vitess/lite:${VITESS_TAG:-latest}
+    image: vitess/lite:mysql80
     ports:
     - 13000:3000
     volumes:
@@ -133,7 +133,7 @@ services:
       - CMD-SHELL
       - curl -s --fail --show-error localhost:8080/debug/health
       timeout: 10s
-    image: vitess/lite:${VITESS_TAG:-latest}
+    image: vitess/lite:mysql80
     ports:
     - 15101:8080
     - "15999"
