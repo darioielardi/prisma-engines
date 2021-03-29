@@ -7,6 +7,7 @@ mkShell {
   PROTOC="${pkgs.protobuf}/bin/protoc";
   PROTOC_INCLUDE="${pkgs.protobuf}/include";
   JAVA_HOME="${pkgs.jdk8}/lib/openjdk";
+  shellHook = '' ln -s ${pkgs.jdk8}/lib/openjdk ./query-engine/connector-test-kit/.openjdk '';
   buildInputs = with pkgs; [
     sbt
     sbt-extras

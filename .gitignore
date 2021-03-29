@@ -43,3 +43,4 @@ buildkite-script-*
 
 # Nix specific
 .direnv/
+query-engine/connector-test-kit/.openjdk
