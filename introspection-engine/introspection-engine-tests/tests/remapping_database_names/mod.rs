@@ -50,7 +50,7 @@ async fn remapping_fields_with_invalid_characters(api: &TestApi) -> crate::TestR
     Ok(())
 }
 
-#[test_each_connector(ignore("mysql_5_7"))]
+#[test_each_connector]
 async fn remapping_tables_with_invalid_characters(api: &TestApi) -> crate::TestResult {
     api.barrel()
         .execute(|migration| {
@@ -126,7 +126,7 @@ async fn remapping_models_in_relations(api: &TestApi) -> crate::TestResult {
     Ok(())
 }
 
-#[test_each_connector(ignore("mysql_5_7"))]
+#[test_each_connector]
 async fn remapping_models_in_relations_should_not_map_virtual_fields(api: &TestApi) -> crate::TestResult {
     api.barrel()
         .execute(|migration| {
