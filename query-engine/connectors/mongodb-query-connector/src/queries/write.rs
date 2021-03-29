@@ -90,7 +90,7 @@ pub async fn create_records(
 
     match coll.insert_many(docs, options).await {
         Ok(insert_result) => Ok(insert_result.inserted_ids.len()),
-        Err(err) if skip_duplicates => match err.kind.as_ref() {
+        Err(err) if skip_duplicates => match &err.kind {
             ErrorKind::BulkWriteError(ref failure) => match failure.write_errors {
                 Some(ref errs) if !errs.iter().any(|err| err.code != 11000) => Ok(num_records - errs.len()),
                 _ => Err(err.into()),

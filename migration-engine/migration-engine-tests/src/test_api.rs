@@ -33,7 +33,7 @@ use sql_migration_connector::SqlMigrationConnector;
 use sql_schema_describer::SqlSchema;
 use std::fmt::Write as _;
 use tempfile::TempDir;
-use test_setup::{create_mysql_database, create_postgres_database, Features, TestApiArgs};
+use test_setup::{Features, TestApiArgs};
 
 /// A handle to all the context needed for end-to-end testing of the migration engine across
 /// connectors.
